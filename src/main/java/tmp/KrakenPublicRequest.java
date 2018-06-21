@@ -2,6 +2,7 @@ package tmp;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,6 +10,7 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -22,7 +24,7 @@ TODO...
 public class KrakenPublicRequest {
 	public JsonObject queryPublic(String a_sMethod, String props) {
 
-		String address = String.format("%s/%d/public/%s", "https://api.kraken.com", 0, a_sMethod);
+		String address = String.format("%s/%d/public/%s", getMarketDataApiUrl(), 0, a_sMethod);
 
 		URL url = null;
 		HttpsURLConnection con = null;
@@ -72,5 +74,26 @@ public class KrakenPublicRequest {
 		}
 		/* TODO check que c'est null lorsque timeout Kraken */
 		return jsonObject;
+	}
+
+	/**
+	 * Return API URL of the MarketDATA provider defined on the config file
+	 */
+	public String getMarketDataApiUrl() {
+		Properties prop = new Properties();
+		InputStream input = null;
+		String market_data_api_url = null;
+		try {
+
+			input = this.getClass().getResourceAsStream("/config.properties");
+			prop.load(input);
+			market_data_api_url = prop.getProperty("market_data_api_url");
+			input.close();
+
+			return market_data_api_url;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
