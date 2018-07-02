@@ -44,6 +44,7 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
+				<version>2.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.wildfly.swarm</groupId>

@@ -33,8 +33,13 @@ public class MACDServlet extends HttpServlet {
 
 		String grainString = req.getParameter("grain");
 		Integer grain = Integer.parseInt(grainString);
+
+		String pairString = req.getParameter("pair");
+		if (null == pairString) {
+			pairString = "XETHZEUR";
+		}
 		
-		MACD macd = new MACDBuilder().setCurrencyPair("XETHZEUR")
+		MACD macd = new MACDBuilder().setCurrencyPair(pairString)
 				.setDureeUnitaire(grain)
 				.setIntervalleMoyenneRapide(12)
 				.setIntervalleMoyenneLente(26)
