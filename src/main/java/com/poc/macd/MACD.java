@@ -59,21 +59,21 @@ public class MACD {
 		List<TradingPeriod> temporaire = new ArrayList<>();
 
 		OHLC ohlc = new OHLC(currencyPair, dureeUnitaire);
-		JsonObject jsonObject = OHLCCache.INSTANCE.get(ohlc);
+		JsonArray arr = OHLCCache.INSTANCE.get(ohlc);
 //		JsonObject jsonObject = new KrakenPublicRequest().queryPublic("OHLC", "pair=" + currencyPair + "&interval=" + dureeUnitaire);/* XETHZEUR 1440*/
 		
-		if(jsonObject == null) {
+		if(arr == null) {
 			/* pb requête Kraken */
 			return;
 		}
 		
-		JsonArray arr = jsonObject.getJsonObject("result").getJsonArray(currencyPair);
+		//JsonArray arr = jsonObject.getJsonObject("result").getJsonArray(currencyPair);
 
 		for (JsonArray jv : arr.getValuesAs(JsonArray.class)) {
 
 			long ts = jv.getJsonNumber(0).longValue() * 1000;
 
-			BigDecimal closingPrice = new BigDecimal(jv.getString(4));
+			BigDecimal closingPrice = jv.getJsonNumber(4).bigDecimalValue();
 
 			temporaire.add(new TradingPeriod(ts, closingPrice));
 

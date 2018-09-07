@@ -1,5 +1,6 @@
 package com.poc.macd;
 
+
 /**
  * builder pattern pour MACD
  */

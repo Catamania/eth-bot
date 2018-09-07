@@ -13,10 +13,10 @@ public class KrakenPublicRequestTest {
 	public void test() {
 		KrakenPublicRequest krakenPublicRequest = new KrakenPublicRequest();
 		try {
-			JsonObject jsonObject = krakenPublicRequest.queryPublic("OHLC", "pair=XETHZEUR&interval=240");
+			JsonArray arr = krakenPublicRequest.queryPublic("fetchOHLCV", "ETH/EUR", 240);
 
-			JsonArray arr = jsonObject.getJsonObject("result")
-					 .getJsonArray("XETHZEUR");
+			//JsonArray arr = jsonObject.getJsonObject("result")
+			//		 .getJsonArray("XETHZEUR");
 //			System.out.println(arr);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

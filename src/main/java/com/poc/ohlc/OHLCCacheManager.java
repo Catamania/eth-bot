@@ -9,8 +9,8 @@ public enum OHLCCacheManager {
 	INSTANCE;
 	
 	private boolean started = false;
-	private String pair = "XETHZEUR";//TODO
-	private int[] grainsEnMinutes = {1,5,15,30,60,240,1440,10080,21600};
+	private String pair = "ETH/EUR";//TODO
+	private int[] grainsEnMinutes = {1,5,15}; //,30,60,240,1440,10080,21600
 	private OHLC[] ohlcs = new OHLC[9];
 	
 	private OHLCCacheManager() {

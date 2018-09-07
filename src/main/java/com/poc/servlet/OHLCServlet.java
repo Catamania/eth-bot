@@ -38,7 +38,7 @@ public class OHLCServlet extends HttpServlet {
 		String grainString = req.getParameter("grain");
 
 		//cache
-		new MACDBuilder().setCurrencyPair("XETHZEUR")
+		new MACDBuilder().setCurrencyPair("ETH/EUR")
 				.setDureeUnitaire(Integer.parseInt(grainString))
 				.setIntervalleMoyenneRapide(12)
 				.setIntervalleMoyenneLente(26)
@@ -46,11 +46,11 @@ public class OHLCServlet extends HttpServlet {
 				.build();
 		
 		// TODO ?
-		OHLC ohlc = new OHLC("XETHZEUR", Integer.parseInt(grainString));//TODO
-		JsonObject jsonObject = OHLCCache.INSTANCE.get(ohlc);
+		OHLC ohlc = new OHLC("ETH/EUR", Integer.parseInt(grainString));//TODO
+		JsonArray arr = OHLCCache.INSTANCE.get(ohlc);
 //		JsonObject jsonObject = new KrakenPublicRequest().queryPublic("OHLC", "pair=XETHZEUR&interval=" + grainString);// TODO
 
-		JsonArray arr = jsonObject.getJsonObject("result").getJsonArray("XETHZEUR");// TODO
+		//JsonArray arr = jsonObject.getJsonArray("result");// TODO
 		int taille = arr.size();
 		List<JsonValue> liste = arr.subList(taille - 50, taille);// TODO : param
 
@@ -75,7 +75,7 @@ public class OHLCServlet extends HttpServlet {
 			JsonArray jsonArray = (JsonArray) value;
 			jsonArrayBuilder.add(Json.createObjectBuilder().add("date", jsonArray.get(0)).add("open", jsonArray.get(1))
 					.add("high", jsonArray.get(2)).add("low", jsonArray.get(3)).add("close", jsonArray.get(4))
-					.add("volume", jsonArray.get(6)).add("adjusted", jsonArray.get(5)));
+					.add("volume", jsonArray.get(5)));
 		}
 
 		return jsonArrayBuilder.build();

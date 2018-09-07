@@ -17,15 +17,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletConfig;
 
 import com.poc.macd.MACD;
 import com.poc.macd.MACDBuilder;
 import com.poc.macd.TradingPeriod;
+import tmp.KrakenPublicRequest;
 
 @WebServlet("/MACD")
 public class MACDServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	public void init(ServletConfig config) throws ServletException {
+	    super.init(config);
+
+		KrakenPublicRequest ex = new KrakenPublicRequest();
+		ex.createExchange();
+		System.out.println ("------- CCXT EXCHANGE CREATED -------");
+  	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +46,7 @@ public class MACDServlet extends HttpServlet {
 
 		String pairString = req.getParameter("pair");
 		if (null == pairString) {
-			pairString = "XETHZEUR";
+			pairString = "ETH/EUR";
 		}
 		
 		MACD macd = new MACDBuilder().setCurrencyPair(pairString)

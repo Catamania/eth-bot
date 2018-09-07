@@ -2,7 +2,7 @@ package com.poc.ohlc;
 
 import java.util.Objects;
 
-import javax.json.JsonObject;
+import javax.json.JsonArray;
 
 import tmp.KrakenPublicRequest;
 
@@ -12,7 +12,7 @@ public class OHLC {
 	private final String pair;
 	/* exemple 5 */
 	private final int grain;
-	private JsonObject dataFromKraken;
+	private JsonArray dataFromKraken;
 
 	public OHLC(String pair, int grain) {
 		super();
@@ -26,7 +26,7 @@ public class OHLC {
 	public int getGrain() {
 		return grain;
 	}
-	public JsonObject getDataFromKraken() {
+	public JsonArray getDataFromKraken() {
 		return dataFromKraken;
 	}
 
@@ -50,8 +50,8 @@ public class OHLC {
 	}
 	
 	/** */
-	public JsonObject refresh() {
-		JsonObject dataFromKraken = new KrakenPublicRequest().queryPublic("OHLC", "pair="+ pair +"&interval=" + grain);
+	public JsonArray refresh() {
+		JsonArray dataFromKraken = new KrakenPublicRequest().queryPublic("fetchOHLCV", pair, grain);
 		if(dataFromKraken != null) {
 			/* cas timeout Kraken */
 			this.dataFromKraken = dataFromKraken;

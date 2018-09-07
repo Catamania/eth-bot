@@ -32,7 +32,7 @@ public class AlerteMACDServlet extends HttpServlet {
 
 		String pairString = req.getParameter("pair");
 		if (null == pairString) {
-			pairString = "XETHZEUR";
+			pairString = "ETH/EUR";
 		}
 		
 		MACD macd = new MACDBuilder().setCurrencyPair(pairString)

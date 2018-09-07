@@ -55,6 +55,7 @@
 					<!-- <debug>8000</debug> -->
 					<properties>
 						<swarm.http.port>8182</swarm.http.port>
+						<java.net.preferIPv4Stack>true</java.net.preferIPv4Stack>
 					</properties>
 				</configuration>
 				<executions>
